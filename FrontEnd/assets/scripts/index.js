@@ -1,12 +1,12 @@
-const fetchProject = async () => {
-	const response = await fetch('http://localhost:5678/api/works');
-	const projects = await response.json();
-	return projects;
+const fetchApi = async (endpoint) => {
+	const response = await fetch(`http://localhost:5678/api/${endpoint}`);
+	const data = await response.json();
+	return data;
 }
 
-const showProjects = async ({
+const displayAndFilterProjects = async ({
 	projects = [],
-	projectsCategoryName = 'Tous',
+	filter = 'Tous',
 }) => {
 	const galleryElement = document.querySelector('.gallery');
 	galleryElement.innerHTML = '';
@@ -16,8 +16,8 @@ const showProjects = async ({
 				name: categoryName = '',
 			} = {},
 		}) => (
-			(categoryName === projectsCategoryName)
-			|| (projectsCategoryName === 'Tous')
+			(categoryName === filter)
+			|| (filter === 'Tous')
 		))
 		.forEach(({
 			title,
@@ -40,16 +40,68 @@ const showProjects = async ({
 		})
 }
 
+const displayCategoriesFilters = async ({
+	categories = [],
+}) => {
+	const filtersContainerElement = document.querySelector('.filters-container');
+	categories
+		.forEach(({
+			name,
+			id,
+		}) => {
+			const buttonElement = document.createElement('button');
+
+			buttonElement.innerHTML = name;
+			buttonElement.dataset.info = name;
+			buttonElement.classList.add('filter-button')
+			if (id === 0) {
+				buttonElement.classList.add('filter-button-active')
+			}
+
+			filtersContainerElement.appendChild(buttonElement);
+		})
+}
+
 const removeClassToElements = (elements, classToRemove) => {
 	elements.forEach((el) => {
 		el.classList.remove(classToRemove);
 	})
 }
 
+const showCategories = (projects) => {
+	const categories = new Set();
+
+	projects.forEach(({
+		category: {
+			name: categoryName = '',
+		} = {},
+		...rest
+	}) => {
+		categories.add(categoryName)
+	})
+
+	return categories
+}
+
 const initializeAllProjects = async () => {
-	const allProjects = await fetchProject();
-	showProjects({
+	const allProjects = await fetchApi('works');
+
+	const projectsCategories = await fetchApi('categories');
+	const allCategories = [
+		{
+			id: 0,
+			name: 'Tous',
+		},
+		...projectsCategories,
+	];
+
+	displayAndFilterProjects({
 		projects: allProjects,
+		filter: 'Tous',
+	});
+
+	displayCategoriesFilters({
+		categories: allCategories,
 	});
 
 	const filterButtons = document.querySelectorAll('.filter-button');
@@ -59,12 +111,13 @@ const initializeAllProjects = async () => {
 	  	removeClassToElements(filterButtons, 'filter-button-active');
 			button.classList.add('filter-button-active');
 	    const buttonText = button.dataset.info.trim();
-	    showProjects({
+	    displayAndFilterProjects({
 	    	projects: allProjects,
-	    	projectsCategoryName: buttonText,
+	    	filter: buttonText,
 	    })
 	  });
 	});
+
 };
 
 
