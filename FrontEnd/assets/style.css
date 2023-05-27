@@ -259,3 +259,110 @@ margin: auto;
 	background: #1D6154;
 	color: white;
 }
+
+/* ADMIN HEADER */
+.admin-header {
+	background: black;
+	height: ;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	padding-left: -10px;
+	left: 0;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	color: white;
+}
+
+.admin-header button {
+	box-sizing: border-box;
+	background: white;
+	border-radius: 60px;
+	height: 37px;
+	padding: 0 20px 0 20px;
+	color: black;
+	font-family: 'Syne';
+	margin-right: 5px;
+	cursor: pointer;
+}
+
+.padding-top-50px {
+	padding-top: 50px;
+}
+
+.display-none {
+	display: none;
+}
+
+
+/* MODIFIERS BUTTON */
+.modify-text {
+	padding-bottom: 30px;
+	margin-top: -30px;
+}
+
+.modify-profile-picture {
+	margin-left: 55px;
+	margin-top: 15px;
+}
+
+.modify-projects {
+
+}
+
+/* MODAL */
+.modal {
+	z-index:2;
+	position: absolute;
+	top: 550px;
+	left: 25.5%;
+	background: white;
+	width: 51%;
+	height: 850px;
+	border-radius: 20px;
+	padding: 50px;
+}
+
+.modal-opacity-filter {
+	background: black;
+	position:fixed;
+	top:0;
+	left:0;
+	width: 100vw;
+	height: 100vh;
+	opacity: 0.5;
+}
+
+.modal-button-header {
+	width: 100%;
+	text-align: right;
+}
+
+#modal {
+	margin: 30px 0px;
+	paddding-left: 160px !important;
+}
+
+#modal h2 {
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+.modal-gallery {
+	width: 100%;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 20px;
+	grid-row-gap: 20px;
+}
+
+.modal-gallery img {
+	width: 100%;
+}
+
+.divider {
+	width: 100%;
+	height: 1px;
+	background-color: lightgrey;
+}
