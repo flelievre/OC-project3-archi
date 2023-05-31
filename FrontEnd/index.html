@@ -25,13 +25,13 @@
 			- enlever la class "display-none" à <div class="modal">
 	!-->
 	<body>
-		<div class="admin-header display-none">
+		<div class="admin-header">
 			Mode édition
 			<button>
 				publier les changements
 			</button>
 		</div>
-		<header>
+		<header class="padding-top-50px">
 			<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
 			<nav>
 				<ul>
@@ -49,7 +49,7 @@
 					<div class="modify-profile-picture">Modifier</div>
 				</figure>
 				<article>
-					<div class="modify-text">Modifier</div>
+					<p class="modify-text">Modifier</p>
 					<h2>Designer d'espace</h2>
 					<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
 					<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
@@ -57,7 +57,8 @@
 				</article>
 			</section>
 			<section id="portfolio">
-				<h2>Mes Projets<span class="modify-projects">Modifier</span></h2>
+				<h2>Mes Projets</h2>
+				<span class="modify-projects">Modifier</span>
 				<section class="filters-container">
 			  </section>
 				<div class="gallery">
@@ -85,8 +86,8 @@
 			</ul>
 		</nav>
 		</footer>
-		<div class="modal-opacity-filter"></div>
-		<div class="modal">
+		<div class="modal-opacity-filter display-none"></div>
+		<div class="modal display-none">
 			<div class="modal-button-header">
 					X
 			</div>
@@ -99,6 +100,6 @@
 				<button>Supprimer la galerie</button>
 			</section>
 		</div>
-		<script src="./assets/scripts/index.js"></script>
+		<script type="module" src="./assets/scripts/index.js"></script>
 	</body>
 </html>

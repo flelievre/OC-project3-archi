@@ -1,8 +1,6 @@
-const fetchApi = async (endpoint) => {
-	const response = await fetch(`http://localhost:5678/api/${endpoint}`);
-	const data = await response.json();
-	return data;
-}
+import {
+	fetchApi,
+} from './api.js';
 
 const displayAndFilterProjects = async ({
 	projects = [],
@@ -51,7 +49,9 @@ const displayCategoriesFilters = async ({
 		}) => {
 			const buttonElement = document.createElement('button');
 
-			buttonElement.innerHTML = name;
+			buttonElement.innerHTML = (name === 'Hotels & restaurants')
+				? 'Hôtels & restaurants'
+				: name;
 			buttonElement.dataset.info = name;
 			buttonElement.classList.add('filter-button')
 			if (id === 0) {
@@ -66,21 +66,6 @@ const removeClassToElements = (elements, classToRemove) => {
 	elements.forEach((el) => {
 		el.classList.remove(classToRemove);
 	})
-}
-
-const showCategories = (projects) => {
-	const categories = new Set();
-
-	projects.forEach(({
-		category: {
-			name: categoryName = '',
-		} = {},
-		...rest
-	}) => {
-		categories.add(categoryName)
-	})
-
-	return categories
 }
 
 const initializeAllProjects = async () => {
