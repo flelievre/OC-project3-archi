@@ -25,12 +25,12 @@
 		<main>
 			<section id="login">
 				<h2>Log In</h2>
-				<form action="#" method="post">
+				<form action="#" method="post" id="loginForm">
 					<label for="email">Email</label>
 					<input type="email" name="email" id="email">
 					<label for="password">Mot de passe</label>
 					<input type="password" name="password" id="password">
-					<input type="submit" value="Se connecter">
+					<input type="submit" id="submit" value="Se connecter">
 					<a href="#">Mot de passe oublié</a>
 				</form>
 			</section>
@@ -42,7 +42,16 @@
 					<li>Mentions Légales</li>
 				</ul>
 			</nav>
-		</footer>
-		<script type="module" src="./assets/scripts/login.js"></script>
+		</footer><script>
+		  function importModuleScriptWithoutCache(url) {
+		    const randomParam = Math.random().toString(36).substring(7);
+		    const script = document.createElement('script');
+		    script.src = `${url}?${randomParam}`;
+		    script.type = 'module';
+		    document.body.appendChild(script);
+		  }
+		  const moduleScriptUrl = 'http://localhost/assets/scripts/login.js';
+		  importModuleScriptWithoutCache(moduleScriptUrl);
+		</script>
 	</body>
 </html>

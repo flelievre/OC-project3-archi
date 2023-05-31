@@ -59,19 +59,58 @@ const displayCategoriesFilters = async ({
 			}
 
 			filtersContainerElement.appendChild(buttonElement);
-		})
-}
+		});
+};
 
 const removeClassToElements = (elements, classToRemove) => {
 	elements.forEach((el) => {
 		el.classList.remove(classToRemove);
 	})
-}
+};
+
+const getAuthUser = () => (
+	JSON.parse(localStorage.getItem('authUser') || '{}')
+);
+
+const showAdminIfAuthenticated = ({
+	allProjects,
+}) => {
+	const {
+		token,
+		userId,
+	} = getAuthUser();
+	if (userId && token) {
+		displayAndFilterProjects({
+			projects: allProjects,
+			filter: 'Tous',
+		});
+		document.querySelector('.admin-header').classList.remove('display-none');
+		
+		document.querySelector('.filters-container').classList.add('display-none');
+
+		document.querySelector('header').classList.add('padding-top-50px');
+
+		document.querySelector('#loginLogoutButton').innerHTML = 'logout';
+		document.querySelector('#loginLogoutButton').href = '#';
+
+		document.querySelectorAll('.modify-button').forEach((el) => {
+			el.classList.remove('display-none');
+		});
+	}
+};
+
 
 const initializeAllProjects = async () => {
-	const allProjects = await fetchApi('works');
+	const allProjects = await fetchApi({
+		endpoint: 'works',
+	});
 
-	const projectsCategories = await fetchApi('categories');
+	showAdminIfAuthenticated({ allProjects });
+
+	const projectsCategories = await fetchApi({
+		endpoint: 'categories',
+	});
+
 	const allCategories = [
 		{
 			id: 0,
@@ -102,7 +141,6 @@ const initializeAllProjects = async () => {
 	    })
 	  });
 	});
-
 };
 
 

@@ -199,8 +199,9 @@ a {
 
 #login {
 	width: 35%;
-margin: auto;
+	margin: auto;
 }
+
 #login > * {
 	text-align: center;
 
@@ -235,6 +236,10 @@ margin: auto;
 	text-align: center;
 	text-decoration: underline;
 	width: 100%;
+}
+
+#submit {
+	cursor: pointer !important;
 }
 
 /* FILTERS */
@@ -282,9 +287,10 @@ margin: auto;
 	height: 37px;
 	padding: 0 20px 0 20px;
 	color: black;
-	font-family: 'Syne';
+	font-family: 'Work Sans';
 	margin-right: 5px;
 	cursor: pointer;
+	border: none;
 }
 
 .padding-top-50px {

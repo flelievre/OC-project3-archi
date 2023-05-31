@@ -1,25 +1,68 @@
-const fetchApi = async (endpoint) => {
-	const response = await fetch(`http://localhost:5678/api/${endpoint}`);
-	const data = await response.json();
-	return data;
-}
+import {
+	fetchApi,
+} from './api.js';
 
 const isValidEmail = (email) => (
-	// TO DO
-	return true
+	/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(email)
 );
 
 const login = async ({
-	email = '',
-	password = '',
-}) => {
-	if (isValidEmail(email)) {
+	email = 'sophie.bluel@test.tld',
+	password = 'S0phie',
+} = {}) => {
+	if (
+		isValidEmail(email)
+		&& (password.length > 0)
+	) {
 		try {
-			console.log('login')
+			const {
+				userId,
+				token,
+			} = await fetchApi({
+				endpoint: 'users/login',
+				options: {
+					method: 'POST',
+				  headers: {
+				    'Content-Type': 'application/json;charset=utf-8'
+				  },
+				  body: JSON.stringify({
+				  	email,
+				  	password,
+				  })
+				},
+			});
+			if (userId && token) {
+				localStorage.setItem('authUser', JSON.stringify({ userId, token }));
+				window.location.href = 'index.html';
+			} else {
+				alert('Email ou mot de passe incorrect')
+			}
 		} catch (e) {
-			console.error('backend-error')
+			alert('Serveur injoignable, veuillez rééssayer plus tard...')
 		}
 	} else {
-		console.error('invalid-email-error')
+		alert('Email ou mot de passe incorrect');
 	}
-}
+};
+
+const onLoginClick = () => {
+	const providedEmail = email.value;
+	const providedPassword = password.value;
+
+	login({
+		email: providedEmail,
+		password: providedPassword,
+	});
+};
+
+const initLogin = () => {
+	const form = document.getElementById('loginForm');
+
+	form.addEventListener('submit', function(event) {
+	  event.preventDefault();
+	  onLoginClick();
+	});
+};
+
+
+initLogin();

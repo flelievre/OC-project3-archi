@@ -9,6 +9,8 @@
 		<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Work+Sans&display=swap" rel="stylesheet">
 		<meta name="description" content="">
 		<link rel="stylesheet" href="./assets/style.css">
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
+            integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
 	</head>
 	<!-- TO DO
 		Généralement : 
@@ -25,19 +27,20 @@
 			- enlever la class "display-none" à <div class="modal">
 	!-->
 	<body>
-		<div class="admin-header">
-			Mode édition
-			<button>
+		<div class="admin-header display-none">
+			<i class="fa-solid fa-pen-to-square search-icon"></i>
+			<i class=""></i>Mode édition
+			<button class="publish-button">
 				publier les changements
 			</button>
 		</div>
-		<header class="padding-top-50px">
+		<header>
 			<h1>Sophie Bluel <span>Architecte d'inteérieur</span></h1>
 			<nav>
 				<ul>
 					<li><a href="index.html#portfolio">projets</a></li>
 					<li><a href="index.html#contact">contact</a></li>
-					<li><a href="login.html">login</a></li>
+					<li><a href="login.html" id="loginLogoutButton">login</a></li>
 					<li><img src="./assets/icons/instagram.png" alt="Instagram"></li>
 				</ul>
 			</nav>
@@ -46,10 +49,10 @@
 			<section id="introduction">
 				<figure>
 					<img src="./assets/images/sophie-bluel.png" alt="">
-					<div class="modify-profile-picture">Modifier</div>
+					<div class="modify-button modify-profile-picture display-none">Modifier</div>
 				</figure>
 				<article>
-					<p class="modify-text">Modifier</p>
+					<p class="modify-button modify-text display-none">Modifier</p>
 					<h2>Designer d'espace</h2>
 					<p>Je raconte votre histoire, je valorise vos idées. Je vous accompagne de la conception à la livraison finale du chantier.</p>
 					<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
@@ -58,7 +61,7 @@
 			</section>
 			<section id="portfolio">
 				<h2>Mes Projets</h2>
-				<span class="modify-projects">Modifier</span>
+				<span class="modify-button modify-projects display-none">Modifier</span>
 				<section class="filters-container">
 			  </section>
 				<div class="gallery">
@@ -100,6 +103,16 @@
 				<button>Supprimer la galerie</button>
 			</section>
 		</div>
-		<script type="module" src="./assets/scripts/index.js"></script>
+		<script>
+		  function importModuleScriptWithoutCache(url) {
+		    const randomParam = Math.random().toString(36).substring(7);
+		    const script = document.createElement('script');
+		    script.src = `${url}?${randomParam}`;
+		    script.type = 'module';
+		    document.body.appendChild(script);
+		  }
+		  const moduleScriptUrl = 'http://localhost/assets/scripts/index.js';
+		  importModuleScriptWithoutCache(moduleScriptUrl);
+		</script>
 	</body>
 </html>
