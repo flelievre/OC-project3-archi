@@ -372,3 +372,8 @@ a {
 	height: 1px;
 	background-color: lightgrey;
 }
+
+#projects-title {
+	justify-content: center;
+	display: flex;
+}

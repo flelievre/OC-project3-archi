@@ -7,8 +7,8 @@ const isValidEmail = (email) => (
 );
 
 const login = async ({
-	email = 'sophie.bluel@test.tld',
-	password = 'S0phie',
+	email,
+	password,
 } = {}) => {
 	if (
 		isValidEmail(email)
@@ -63,6 +63,5 @@ const initLogin = () => {
 	  onLoginClick();
 	});
 };
-
 
 initLogin();

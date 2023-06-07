@@ -99,6 +99,23 @@ const showAdminIfAuthenticated = ({
 	}
 };
 
+const logOut = () => {
+	if (document.querySelector('#loginLogoutButton').innerHTML === 'logout') {
+		localStorage.removeItem('authUser');
+		window.location.reload();
+	}
+}
+
+const showModal = () => {
+	document.querySelector('.modal-opacity-filter').classList.remove('display-none');
+	document.querySelector('.modal').classList.remove('display-none');
+};
+
+const closeModal = () => {
+	document.querySelector('.modal-opacity-filter').classList.add('display-none');
+	document.querySelector('.modal').classList.add('display-none');
+};
+
 
 const initializeAllProjects = async () => {
 	const allProjects = await fetchApi({
@@ -140,6 +157,22 @@ const initializeAllProjects = async () => {
 	    	filter: buttonText,
 	    })
 	  });
+	});
+
+	const logOutButton = document.querySelector('#loginLogoutButton');
+
+	logOutButton.addEventListener('click', function() {
+		logOut();
+	});
+
+	const projectsModalButton = document.querySelector('.modify-projects');
+	projectsModalButton.addEventListener('click', function() {
+		showModal();
+	});
+
+	const closeModalButton = document.querySelector('.modal-button-header');
+	closeModalButton.addEventListener('click', function() {
+		closeModal();
 	});
 };
 
