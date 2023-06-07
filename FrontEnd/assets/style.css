@@ -135,11 +135,11 @@ li:hover {
 
 .gallery img {
 	width: 100%;
-
 }
+
 #contact {
 	width: 50%;
-margin: auto;
+	margin: auto;
 }
 #contact > * {
 	text-align: center;
@@ -358,19 +358,52 @@ a {
 .modal-gallery {
 	width: 100%;
 	display: grid;
-	grid-template-columns: 1fr 1fr 1fr;
-	grid-column-gap: 20px;
-	grid-row-gap: 20px;
+	grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+	grid-column-gap: 10px;
+	grid-row-gap: 10px;
+	padding: 0 0px;
 }
 
 .modal-gallery img {
 	width: 100%;
 }
 
+.modal-gallery-add-button {
+	box-sizing: border-box;
+	background: #1D6154;
+	border: 1px solid #1D6154;
+	border-radius: 60px;
+	height: 37px;
+	padding: 0 20px 0 20px;
+	color: white;
+	font-family: 'Syne';
+	cursor: pointer;
+	margin-top: 30px;
+}
+
+.modal-gallery-delete-button {
+	background: none;
+	border: none;
+	height: 37px;
+	padding: 0 20px 0 20px;
+	color: #D65353;
+	font-style: normal;
+	font-weight: 400;
+	font-family: 'Syne';
+	cursor: pointer;
+}
+
+.modal-buttons {
+	display: flex;
+	flex-direction: column;
+	gap: 20px;
+}
+
 .divider {
 	width: 100%;
 	height: 1px;
 	background-color: lightgrey;
+	margin-top: 30px;
 }
 
 #projects-title {

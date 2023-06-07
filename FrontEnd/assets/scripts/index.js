@@ -7,7 +7,9 @@ const displayAndFilterProjects = async ({
 	filter = 'Tous',
 }) => {
 	const galleryElement = document.querySelector('.gallery');
+	const modalGalleryElement = document.querySelector('.modal-gallery');
 	galleryElement.innerHTML = '';
+	modalGalleryElement.innerHTML = '';
 	projects
 		.filter(({
 			category: {
@@ -29,12 +31,13 @@ const displayAndFilterProjects = async ({
 			imgElement.src = imageUrl;
 			imgElement.alt = title;
 
-			figcaptionElement.textContent = title;
+			figcaptionElement.textContent = 'éditer';
 
 			figureElement.appendChild(imgElement);
 			figureElement.appendChild(figcaptionElement);
 
 			galleryElement.appendChild(figureElement);
+			modalGalleryElement.appendChild(figureElement);
 		})
 }
 
