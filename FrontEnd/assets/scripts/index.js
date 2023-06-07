@@ -160,7 +160,6 @@ const initializeAllProjects = async () => {
 	});
 
 	const logOutButton = document.querySelector('#loginLogoutButton');
-
 	logOutButton.addEventListener('click', function() {
 		logOut();
 	});
