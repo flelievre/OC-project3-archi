@@ -147,6 +147,9 @@ const showModal = () => {
 const closeModal = () => {
 	document.querySelector('.modal-opacity-filter').classList.add('display-none');
 	document.querySelector('.modal').classList.add('display-none');
+	switchModalContent({
+		reset: true,
+	});
 };
 
 const deleteProject = async ({
@@ -180,18 +183,23 @@ const resetProjects = async () => {
 	return allProjects;
 };
 
-const switchModalContent = async () => {
+const switchModalContent = async ({
+	reset = false,
+} = {}) => {
 	const addProjectModalSection = document.getElementById('modal-add-project');
 	const projectsModalSection = document.getElementById('modal');
 	const backModalButtonImg = document.getElementById('modal-back-button-img');
-	if (addProjectModalSection.classList.contains('display-none')) {
-		addProjectModalSection.classList.remove('display-none');
-		backModalButtonImg.classList.remove('display-none');
-		projectsModalSection.classList.add('display-none');
-	} else {
+	if (
+		!addProjectModalSection.classList.contains('display-none')
+		|| reset
+	) {
 		addProjectModalSection.classList.add('display-none');
 		backModalButtonImg.classList.add('display-none');
 		projectsModalSection.classList.remove('display-none');
+	} else {
+		addProjectModalSection.classList.remove('display-none');
+		backModalButtonImg.classList.remove('display-none');
+		projectsModalSection.classList.add('display-none');
 	}
 };
 
