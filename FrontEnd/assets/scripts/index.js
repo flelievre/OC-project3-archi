@@ -7,9 +7,11 @@ const displayAndFilterProjects = async ({
 	filter = 'Tous',
 }) => {
 	const galleryElement = document.querySelector('.gallery');
-	const modalGalleryElement = document.querySelector('.modal-gallery');
 	galleryElement.innerHTML = '';
+
+	const modalGalleryElement = document.querySelector('.modal-gallery');
 	modalGalleryElement.innerHTML = '';
+
 	projects
 		.filter(({
 			category: {
@@ -31,24 +33,43 @@ const displayAndFilterProjects = async ({
 			imgElement.src = imageUrl;
 			imgElement.alt = title;
 
-			figcaptionElement.textContent = 'éditer';
+			figcaptionElement.textContent = title;
 
 			figureElement.appendChild(imgElement);
 			figureElement.appendChild(figcaptionElement);
 
 			galleryElement.appendChild(figureElement);
 
-			const deleteImgElement = document.createElement('img');
-			deleteImgElement.src = '/assets/images/bin.svg';
-			deleteImgElement.alt = `Delete ${title}`;
-			deleteImgElement.id = `project-${id}`;
-			deleteImgElement.classList.add('delete-project-button');
+			const projectModalFigureElement = figureElement.cloneNode(true);
 
-			figureElement.insertBefore(deleteImgElement, imgElement);
-
-			modalGalleryElement.appendChild(figureElement);
+			appendToProjectModal({
+				projectModalFigureElement,
+				modalGalleryElement,
+				title,
+				id,
+			});
 		})
-}
+};
+
+const appendToProjectModal = ({
+	projectModalFigureElement,
+	modalGalleryElement,
+	title,
+	id,
+}) => {
+	const deleteImgElement = document.createElement('img');
+	deleteImgElement.src = '/assets/images/bin.svg';
+	deleteImgElement.alt = `Delete ${title}`;
+	deleteImgElement.id = `project-${id}`;
+	deleteImgElement.classList.add('delete-project-button');
+
+	const figcaptionElement = projectModalFigureElement.querySelector('figcaption');
+	figcaptionElement.textContent = 'éditer';
+
+	projectModalFigureElement.insertBefore(deleteImgElement, projectModalFigureElement.firstElementChild);
+
+	modalGalleryElement.appendChild(projectModalFigureElement);
+};
 
 const displayCategoriesFilters = async ({
 	categories = [],
