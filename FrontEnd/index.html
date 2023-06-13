@@ -95,9 +95,13 @@
 		</footer>
 		<div class="modal-opacity-filter display-none"></div>
 		<div class="modal display-none">
-		<!-- <div class="modal"> -->
-			<div class="modal-button-header">
-					<img src="./assets/images/close.svg" />
+			<div class="modal-buttons-header">
+				<div class="back-modal-button-header">
+						<img id="modal-back-button-img" src="./assets/images/close.svg" class="display-none" />
+				</div>
+				<div class="modal-button-header">
+						<img src="./assets/images/close.svg" />
+				</div>
 			</div>
 			<section id="modal">
 				<h2>Galerie photo</h2>
@@ -108,6 +112,20 @@
 					<button class="modal-gallery-add-button">Ajouter une photo</button>
 					<button class="modal-gallery-delete-button">Supprimer la galerie</button>
 				</div>
+			</section>
+			<section id="modal-add-project" class="display-none">
+				<h2>Ajout photo</h2>
+				<form action="#" method="post">
+					<label for="name">Titre</label>
+					<input type="text" name="name" id="name">
+					<label for="email">Catégorie</label>
+					<input type="text" name="name" id="name">
+					<div class="divider"></span>
+					<div class="modal-buttons">
+						<button class="modal-gallery-add-button">Ajouter une photo</button>
+						<button class="modal-gallery-delete-button">Supprimer la galerie</button>
+					</div>
+				</form>
 			</section>
 		</div>
 		<script>

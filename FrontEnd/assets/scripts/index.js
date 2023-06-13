@@ -180,6 +180,21 @@ const resetProjects = async () => {
 	return allProjects;
 };
 
+const switchModalContent = async () => {
+	const addProjectModalSection = document.getElementById('modal-add-project');
+	const projectsModalSection = document.getElementById('modal');
+	const backModalButtonImg = document.getElementById('modal-back-button-img');
+	if (addProjectModalSection.classList.contains('display-none')) {
+		addProjectModalSection.classList.remove('display-none');
+		backModalButtonImg.classList.remove('display-none');
+		projectsModalSection.classList.add('display-none');
+	} else {
+		addProjectModalSection.classList.add('display-none');
+		backModalButtonImg.classList.add('display-none');
+		projectsModalSection.classList.remove('display-none');
+	}
+};
+
 const initializeAllProjects = async () => {
 	const allProjects = await resetProjects();
 
@@ -235,6 +250,12 @@ const initializeAllProjects = async () => {
 		closeModal();
 	});
 
+	const backModalButton = document.querySelector('.back-modal-button-header');
+	backModalButton.addEventListener('click', function() {
+		console.log('click');
+		switchModalContent();
+	});
+
 	const deleteProjectButtons = document.querySelectorAll('.delete-project-button');
 
 	deleteProjectButtons.forEach(function(deleteProjectButton) {
@@ -255,6 +276,12 @@ const initializeAllProjects = async () => {
 	  	}
 	  });
 	});
+
+	const addProjectButton = document.querySelector('.modal-gallery-add-button');
+
+  addProjectButton.addEventListener('click', async function() {
+  	switchModalContent();
+  });
 };
 
 

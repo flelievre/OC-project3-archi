@@ -340,9 +340,11 @@ a {
 	opacity: 0.5;
 }
 
-.modal-button-header {
-	width: 100%;
-	text-align: right;
+.modal-buttons-header {
+	display: flex;
+	flex-direction: row;
+	align-items: flex-start;
+	justify-content: space-between;
 }
 
 #modal {
@@ -351,6 +353,16 @@ a {
 }
 
 #modal h2 {
+	text-align: center;
+	margin-bottom: 1em;
+}
+
+#modal-add-project {
+	margin: 30px 0px;
+	paddding-left: 160px !important;
+}
+
+#modal-add-project h2 {
 	text-align: center;
 	margin-bottom: 1em;
 }
@@ -419,4 +431,30 @@ a {
 	position: absolute;
 	margin-left: 5px;
 	margin-top: 5px;
+}
+
+#modal-add-project > * {
+	text-align: center;
+
+}
+#modal-add-project h2{
+	margin-bottom: 20px;
+}
+
+#modal-add-project form {
+	text-align: left;
+	margin-top:30px;
+	display: flex;
+	flex-direction: column;
+	padding: 0 80px;
+}
+
+#modal-add-project input {
+	height: 50px;
+	font-size: 1.2em;
+	border: none;
+	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+}
+#modal-add-project label {
+	margin: 2em 0 1em 0;
 }
