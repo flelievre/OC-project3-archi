@@ -37,6 +37,15 @@ const displayAndFilterProjects = async ({
 			figureElement.appendChild(figcaptionElement);
 
 			galleryElement.appendChild(figureElement);
+
+			const deleteImgElement = document.createElement('img');
+			deleteImgElement.src = '/assets/images/bin.svg';
+			deleteImgElement.alt = `Delete ${title}`;
+			deleteImgElement.id = `project-${id}`;
+			deleteImgElement.classList.add('delete-project-button');
+
+			figureElement.insertBefore(deleteImgElement, imgElement);
+
 			modalGalleryElement.appendChild(figureElement);
 		})
 }
@@ -119,11 +128,39 @@ const closeModal = () => {
 	document.querySelector('.modal').classList.add('display-none');
 };
 
+const deleteProject = async ({
+	projectId = '',
+} = {}) => {
+	const {
+		token,
+		userId,
+	} = getAuthUser();
+	try {
+		await fetchApi({
+			endpoint: `works/${projectId}`,
+			options: {
+				method: 'DELETE',
+			  headers: {
+			    'Content-Type': 'application/json;charset=utf-8',
+			    'Authorization': `Bearer ${token}`,
+			  },
+			},
+		});
+	} catch (e) {
+		console.error(e);
+	}
+};
 
-const initializeAllProjects = async () => {
+
+const resetProjects = async () => {
 	const allProjects = await fetchApi({
 		endpoint: 'works',
 	});
+	return allProjects;
+};
+
+const initializeAllProjects = async () => {
+	const allProjects = await resetProjects();
 
 	showAdminIfAuthenticated({ allProjects });
 
@@ -175,6 +212,27 @@ const initializeAllProjects = async () => {
 	const closeModalButton = document.querySelector('.modal-button-header');
 	closeModalButton.addEventListener('click', function() {
 		closeModal();
+	});
+
+	const deleteProjectButtons = document.querySelectorAll('.delete-project-button');
+
+	deleteProjectButtons.forEach(function(deleteProjectButton) {
+	  deleteProjectButton.addEventListener('click', async function() {
+	  	const splittedProjectId = deleteProjectButton?.id.split('-');
+	  	const projectId = (splittedProjectId.length > 0)
+	  		? splittedProjectId[1]
+	  		: null;
+	  	if (projectId) {
+	  		await deleteProject({
+		  		projectId,
+		  	});
+		  	const allRemainingProjects = await resetProjects();
+			  displayAndFilterProjects({
+					projects: allRemainingProjects,
+					filter: 'Tous',
+				});
+	  	}
+	  });
 	});
 };
 

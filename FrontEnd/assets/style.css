@@ -410,3 +410,13 @@ a {
 	justify-content: center;
 	display: flex;
 }
+
+.delete-project-button {
+	background: black;
+	padding: 5px;
+	height: 15px;
+	width: 15px !important;
+	position: absolute;
+	margin-left: 5px;
+	margin-top: 5px;
+}
