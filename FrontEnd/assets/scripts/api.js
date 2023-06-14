@@ -13,3 +13,4 @@ export const fetchApi = async ({
 		return data;
 	}
 };
+
