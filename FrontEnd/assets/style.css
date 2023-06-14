@@ -464,7 +464,7 @@ a {
 
 #projects-title {
 	justify-content: center;
-	display: flex;
+	display: flex; 
 }
 
 .delete-project-button {
