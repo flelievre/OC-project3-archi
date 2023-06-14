@@ -12,20 +12,6 @@
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css"
             integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer">
 	</head>
-	<!-- TO DO
-		Généralement : 
-			- ajouter la class "display-none" <div class="admin-header"> (pour masquer le admin header quand pas admin)
-
-		On login :
-			- cliquer sur "tous" pour afficher tous les projets
-			- ajouter la class "display-none" à <section class="filters-container">
-			- ajouter la class "padding-top-50px" au <header>
-			- enlever la class "display-none" à la <div class="admin-header">
-
-		On projets "Modifier" click :
-			- enlever la class "display-none" à la <div class="modal-opacity-filter">
-			- enlever la class "display-none" à <div class="modal">
-	!-->
 	<body>
 		<div class="admin-header display-none">
 			<span class="icon-container">
@@ -116,13 +102,15 @@
 		</main>
 
 		<footer>
-		<nav>
-			<ul>
-				<li>Mentions Légales</li>
-			</ul>
-		</nav>
+			<nav>
+				<ul>
+					<li>Mentions Légales</li>
+				</ul>
+			</nav>
 		</footer>
+
 		<div class="modal-opacity-filter display-none"></div>
+
 		<div class="modal display-none">
 			<div class="modal-buttons-header">
 				<div class="back-modal-button-header">
@@ -151,8 +139,10 @@
 				<section id="modal">
 					<h2>Ajout photo</h2>
 					<form action="#" method="post">
+						<input type="file" id="pictureInput" accept="image/*">
+						<img id="previewImage" src="" alt="Preview">
 						<label for="name">Titre</label>
-						<input type="text" name="name" id="name">
+						<input type="text" name="name" id="image-title">
 						<label for="categorie">Catégorie</label>
 						<div class="select-wrapper" name="categorie" id="categorie">
 						  <select id="category-select">
@@ -165,8 +155,7 @@
 					</form>
 				</section>
 				<div class="modal-buttons">
-					<button class="modal-gallery-add-button">Ajouter une photo</button>
-					<button class="modal-gallery-delete-button">Supprimer la galerie</button>
+					<button type="button" id="submit-project-button" class="modal-gallery-add-button">Valider</button>
 				</div>
 			</div>
 		</div>

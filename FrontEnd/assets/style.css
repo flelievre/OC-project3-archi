@@ -291,6 +291,7 @@ a {
 	margin-right: 5px;
 	cursor: pointer;
 	border: none;
+  z-index: 10;
 }
 
 .padding-top-50px {
@@ -436,6 +437,13 @@ a {
 	cursor: pointer;
 }
 
+.modal-gallery-add-button:disabled {
+  background: white !important;
+  opacity: 0.5; /* Reduce opacity to indicate disabled state */
+  cursor: not-allowed  !important; /* Change cursor to indicate not-allowed interaction */
+  /* Add any additional styles to customize the disabled button */
+}
+
 .modal-gallery-delete-button {
 	background: none;
 	border: none;
@@ -479,7 +487,6 @@ a {
 }
 
 #modal > * {
-	text-align: center;
 }
 
 #modal form {

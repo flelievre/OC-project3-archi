@@ -49,6 +49,8 @@ const displayAndFilterProjects = async ({
 				id,
 			});
 		})
+
+		initDeleteButtonsListeners();
 };
 
 const displayCategoriesOptionsInSelect = (categories = []) => {
@@ -57,7 +59,7 @@ const displayCategoriesOptionsInSelect = (categories = []) => {
 
 	const optionElement = document.createElement('option');
 
-	optionElement.value = '';
+	optionElement.value = -1;
 	optionElement.textContent = '';
 
 	select.appendChild(optionElement);
@@ -69,7 +71,7 @@ const displayCategoriesOptionsInSelect = (categories = []) => {
 		}) => {
 			const optionElement = document.createElement('option');
 
-			optionElement.value = name;
+			optionElement.value = id;
 			optionElement.textContent = name;
 
 			select.appendChild(optionElement);
@@ -208,6 +210,17 @@ const resetProjects = async () => {
 	return allProjects;
 };
 
+const resetAddProjectModalForm = () => {
+	const selectElement = document.getElementById('category-select');
+  selectElement.selectedIndex = -1;
+  selectElement.value = '';
+
+  const imageTitleElement = document.getElementById('image-title');
+  imageTitleElement.value = '';
+
+  resetFileInput();
+};
+
 const switchModalContent = async ({
 	reset = false,
 } = {}) => {
@@ -221,14 +234,162 @@ const switchModalContent = async ({
 		addProjectModalSection.classList.add('display-none');
 		backModalButtonImg.classList.add('display-none');
 		projectsModalSection.classList.remove('display-none');
+
+	  resetAddProjectModalForm();
 	} else {
 		addProjectModalSection.classList.remove('display-none');
 		backModalButtonImg.classList.remove('display-none');
 		projectsModalSection.classList.add('display-none');
+		adaptAddProjectFormIsDiabled();
 	}
 };
 
+const initDeleteButtonsListeners = () => {
+	const deleteProjectButtons = document.querySelectorAll('.delete-project-button');
+
+	deleteProjectButtons.forEach(function(deleteProjectButton) {
+	  deleteProjectButton.addEventListener('click', async function() {
+	  	const splittedProjectId = deleteProjectButton?.id.split('-');
+	  	const projectId = (splittedProjectId.length > 0)
+	  		? splittedProjectId[1]
+	  		: null;
+	  	if (projectId) {
+	  		await deleteProject({
+		  		projectId,
+		  	});
+		  	const allRemainingProjects = await resetProjects();
+			  displayAndFilterProjects({
+					projects: allRemainingProjects,
+					filter: 'Tous',
+				});
+	  	}
+	  });
+	});
+}
+
+const resetFileInput = () => {
+  const fileInput = document.getElementById('pictureInput');
+  const previewImage = document.getElementById('previewImage');
+
+  const newFileInput = document.createElement('input');
+  newFileInput.type = 'file';
+  newFileInput.id = 'pictureInput';
+  newFileInput.accept = "image/*";
+
+  fileInput.parentNode.replaceChild(newFileInput, fileInput);
+
+  previewImage.src = '';
+
+  newFileInput.addEventListener('change', (event) => {
+	  const file = event.target.files[0];
+
+	  if (file) {
+	    const reader = new FileReader();
+
+	    reader.onload = (e) => {
+	      previewImage.src = e.target.result;
+	    };
+
+	    reader.readAsDataURL(file);
+	  } else {
+	    previewImage.src = '';
+	  }
+	});
+};
+
+const uploadPicture = async () => {
+  const input = document.getElementById('pictureInput');
+  const file = input.files[0];
+
+  const selectElement = document.getElementById('category-select');
+  const category = selectElement?.value;
+
+  const imageTitleElement = document.getElementById('image-title');
+  const title = imageTitleElement?.value;
+
+  if (!title || title.length === 0){
+  	alert('Titre requis')
+  }
+
+  if (!category || Number.isNaN(category) || category < 1){
+  	alert('Catégorie requise')
+  }
+
+  if (file) {
+    // Check file size (maximum 5MB)
+    const fileSize = file.size / 1024 / 1024; // in MB
+    if (fileSize > 5) {
+      alert('File size exceeds the maximum limit of 5MB.');
+      return;
+    }
+
+    // Check file type (image only)
+    if (!file.type.startsWith('image/')) {
+      alert('Only image files are allowed.');
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('image', file);
+    formData.append('title', title);
+    formData.append('category', category);
+
+		const {
+			token,
+			userId,
+		} = getAuthUser();
+
+    await fetchApi({
+    	endpoint: 'works',
+      options: {
+      	method: 'POST',
+      	headers: {
+			    'Authorization': `Bearer ${token}`,
+			  },
+      	body: formData,
+      },
+    })
+      .then(response => {
+        if (response.ok) {
+          console.log('Image téléversée !');
+        } else {
+          alert('Erreur lors du téléversement de votre image');
+        }
+      })
+      .catch(error => {
+        console.error('Impossible de joindre le serveur', error);
+      });
+  } else {
+    alert('Image requise');
+  }
+}
+
+const adaptAddProjectFormIsDiabled = () => {
+	const titleInput = document.getElementById('image-title');
+	const categorySelectInput = document.getElementById('category-select');
+	const submitProjectButton = document.getElementById('submit-project-button');
+	const input = document.getElementById('pictureInput');
+  const file = input?.files[0];
+
+  if (
+  	!file
+  	|| (titleInput.value.trim() === '')
+  	|| (categorySelectInput.value < 1)
+  ) {
+    submitProjectButton.disabled = true;
+  } else {
+    submitProjectButton.disabled = false;
+  }
+};
+
 const initializeAllProjects = async () => {
+	// // FOR DEV PURPOSE
+	
+	// showModal();
+	// switchModalContent();
+	
+	// //END
+
 	const allProjects = await resetProjects();
 
 	showAdminIfAuthenticated({ allProjects });
@@ -287,37 +448,43 @@ const initializeAllProjects = async () => {
 
 	const backModalButton = document.querySelector('.back-modal-button-header');
 	backModalButton.addEventListener('click', function() {
-		console.log('click');
 		switchModalContent();
-	});
-
-	const deleteProjectButtons = document.querySelectorAll('.delete-project-button');
-
-	deleteProjectButtons.forEach(function(deleteProjectButton) {
-	  deleteProjectButton.addEventListener('click', async function() {
-	  	const splittedProjectId = deleteProjectButton?.id.split('-');
-	  	const projectId = (splittedProjectId.length > 0)
-	  		? splittedProjectId[1]
-	  		: null;
-	  	if (projectId) {
-	  		await deleteProject({
-		  		projectId,
-		  	});
-		  	const allRemainingProjects = await resetProjects();
-			  displayAndFilterProjects({
-					projects: allRemainingProjects,
-					filter: 'Tous',
-				});
-	  	}
-	  });
 	});
 
 	const addProjectButton = document.getElementById('add-project-button');
 
-  addProjectButton.addEventListener('click', async function() {
+  addProjectButton.addEventListener('click', function() {
   	switchModalContent();
   });
+
+  const imageInput = document.getElementById('pictureInput');
+	const previewImage = document.getElementById('previewImage');
+
+	// Get the input element and the button element
+	const titleInput = document.getElementById('image-title');
+	const categorySelectInput = document.getElementById('category-select');
+
+	titleInput.addEventListener('input', () => {
+	  adaptAddProjectFormIsDiabled();
+	});
+
+	categorySelectInput.addEventListener('change', () => {
+	  adaptAddProjectFormIsDiabled();
+	});
+
+	const submitProjectButton = document.getElementById('submit-project-button');
+
+  submitProjectButton.addEventListener('click', async function() {
+  	await uploadPicture();
+  });
+
+  resetAddProjectModalForm();
 };
 
 
 initializeAllProjects();
+
+// TO DO : 
+// - formdata
+// - déplacer icon poubelle à droite
+// - premiere image dans la modal : ajouter icone déplacer
