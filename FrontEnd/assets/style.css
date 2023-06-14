@@ -306,25 +306,34 @@ a {
 .modify-text {
 	padding-bottom: 30px;
 	margin-top: -30px;
+	cursor: pointer;
+}
+
+.modify-button {
+	cursor: pointer;
 }
 
 .modify-profile-picture {
 	margin-left: 55px;
 	margin-top: 15px;
+	cursor: pointer;
 }
 
 .icon-container {
 	position: relative;
+	cursor: pointer;
 }
 
 .modify-header-text {
 	margin-left: 25px;
 	margin-right: 15px;
+	cursor: pointer;
 }
 
 .modify-projects {
 	margin-left: 35px;
 	margin-top: 7px;
+	cursor: pointer;
 }
 
 .icon-frame {
@@ -338,6 +347,10 @@ a {
 }
 
 /* MODAL */
+.modal-button-header {
+	cursor: pointer;
+}
+
 .modal {
 	z-index:2;
 	position: absolute;
@@ -345,9 +358,8 @@ a {
 	left: 25.5%;
 	background: white;
 	width: 51%;
-	height: 850px;
 	border-radius: 20px;
-	padding: 50px;
+	padding: 35px 40px;
 }
 
 .modal-opacity-filter {
@@ -367,14 +379,25 @@ a {
 	justify-content: space-between;
 }
 
+.back-modal-button-header {
+	cursor: pointer;
+}
+
 #modal {
-	margin: 30px 0px;
-	paddding-left: 160px !important;
+	padding: 0px 60px;
 }
 
 #modal h2 {
 	text-align: center;
-	margin-bottom: 1em;
+	margin-bottom: 2em;
+	font-family: 'Work Sans';
+	font-style: normal;
+	font-weight: 400;
+	font-size: 26px;
+	line-height: 30px;
+	text-align: center;
+
+	color: #000000;
 }
 
 #modal-add-project {
@@ -406,11 +429,11 @@ a {
 	border: 1px solid #1D6154;
 	border-radius: 60px;
 	height: 37px;
+	width: 300px;
 	padding: 0 20px 0 20px;
 	color: white;
 	font-family: 'Syne';
 	cursor: pointer;
-	margin-top: 30px;
 }
 
 .modal-gallery-delete-button {
@@ -429,13 +452,14 @@ a {
 	display: flex;
 	flex-direction: column;
 	gap: 20px;
+	align-items: center;
 }
 
 .divider {
 	width: 100%;
 	height: 1px;
 	background-color: lightgrey;
-	margin-top: 30px;
+	margin-top: 50px;
 }
 
 #projects-title {
@@ -451,30 +475,59 @@ a {
 	position: absolute;
 	margin-left: 5px;
 	margin-top: 5px;
+  cursor: pointer;
 }
 
-#modal-add-project > * {
+#modal > * {
 	text-align: center;
-
-}
-#modal-add-project h2{
-	margin-bottom: 20px;
 }
 
-#modal-add-project form {
+#modal form {
 	text-align: left;
 	margin-top:30px;
 	display: flex;
 	flex-direction: column;
-	padding: 0 80px;
 }
 
-#modal-add-project input {
+#modal input {
 	height: 50px;
-	font-size: 1.2em;
 	border: none;
+  padding-left: 10px;
 	box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
 }
-#modal-add-project label {
+#modal label {
 	margin: 2em 0 1em 0;
+}
+
+.select-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
+.select-wrapper select {
+  -webkit-appearance: none; /* Remove default arrow icon in WebKit browsers */
+  -moz-appearance: none; /* Remove default arrow icon in Firefox */
+  appearance: none;
+  padding-right: 30px;
+  padding-left: 10px;
+  width: 100%;
+  height: 51px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.09);
+  border: none;
+}
+
+.icon-wrapper {
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-right: 10px;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  pointer-events: none; /* Permet aux clics d'atteindre le champ de sélection */
+}
+
+.icon-wrapper i {
+  margin-right: 5px; /* Espacement entre l'icône et le champ de sélection */
 }

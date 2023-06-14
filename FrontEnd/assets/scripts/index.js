@@ -51,6 +51,31 @@ const displayAndFilterProjects = async ({
 		})
 };
 
+const displayCategoriesOptionsInSelect = (categories = []) => {
+	const select = document.getElementById('category-select');
+	select.innerHTML = '';
+
+	const optionElement = document.createElement('option');
+
+	optionElement.value = '';
+	optionElement.textContent = '';
+
+	select.appendChild(optionElement);
+
+	categories
+		.forEach(({
+			id,
+			name,
+		}) => {
+			const optionElement = document.createElement('option');
+
+			optionElement.value = name;
+			optionElement.textContent = name;
+
+			select.appendChild(optionElement);
+		})
+};
+
 const appendToProjectModal = ({
 	projectModalFigureElement,
 	modalGalleryElement,
@@ -186,8 +211,8 @@ const resetProjects = async () => {
 const switchModalContent = async ({
 	reset = false,
 } = {}) => {
-	const addProjectModalSection = document.getElementById('modal-add-project');
-	const projectsModalSection = document.getElementById('modal');
+	const addProjectModalSection = document.getElementById('modal-add-projects');
+	const projectsModalSection = document.getElementById('modal-edit-projects');
 	const backModalButtonImg = document.getElementById('modal-back-button-img');
 	if (
 		!addProjectModalSection.classList.contains('display-none')
@@ -211,6 +236,8 @@ const initializeAllProjects = async () => {
 	const projectsCategories = await fetchApi({
 		endpoint: 'categories',
 	});
+
+	displayCategoriesOptionsInSelect(projectsCategories);
 
 	const allCategories = [
 		{
@@ -285,7 +312,7 @@ const initializeAllProjects = async () => {
 	  });
 	});
 
-	const addProjectButton = document.querySelector('.modal-gallery-add-button');
+	const addProjectButton = document.getElementById('add-project-button');
 
   addProjectButton.addEventListener('click', async function() {
   	switchModalContent();

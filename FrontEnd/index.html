@@ -126,36 +126,49 @@
 		<div class="modal display-none">
 			<div class="modal-buttons-header">
 				<div class="back-modal-button-header">
-						<img id="modal-back-button-img" src="./assets/images/close.svg" class="display-none" />
+					<img id="modal-back-button-img" src="./assets/images/arrow-back-black.svg" class="display-none" />
 				</div>
 				<div class="modal-button-header">
-						<img src="./assets/images/close.svg" />
+					<img src="./assets/images/cross-black.svg" />
 				</div>
 			</div>
-			<section id="modal">
-				<h2>Galerie photo</h2>
-				<div class="modal-gallery">
+			<div id="modal-edit-projects">
+				<section id="modal">
+					<h2>Galerie photo</h2>
+					<div class="modal-gallery"></div>
+					<div class="divider"></div>
+				</section>
+				<div class="modal-buttons">
+					<button class="modal-gallery-add-button" id="add-project-button">
+						Ajouter une photo
+					</button>
+					<button class="modal-gallery-delete-button">
+						Supprimer la galerie
+					</button>
 				</div>
-				<div class="divider"></span>
+			</div>
+			<div id="modal-add-projects" class="display-none">
+				<section id="modal">
+					<h2>Ajout photo</h2>
+					<form action="#" method="post">
+						<label for="name">Titre</label>
+						<input type="text" name="name" id="name">
+						<label for="categorie">Catégorie</label>
+						<div class="select-wrapper" name="categorie" id="categorie">
+						  <select id="category-select">
+						  </select>
+						  <div class="icon-wrapper">
+						    <i class="fas fa-chevron-down"></i>
+						  </div>
+						</div>
+						<div class="divider"></div>
+					</form>
+				</section>
 				<div class="modal-buttons">
 					<button class="modal-gallery-add-button">Ajouter une photo</button>
 					<button class="modal-gallery-delete-button">Supprimer la galerie</button>
 				</div>
-			</section>
-			<section id="modal-add-project" class="display-none">
-				<h2>Ajout photo</h2>
-				<form action="#" method="post">
-					<label for="name">Titre</label>
-					<input type="text" name="name" id="name">
-					<label for="email">Catégorie</label>
-					<input type="text" name="name" id="name">
-					<div class="divider"></span>
-					<div class="modal-buttons">
-						<button class="modal-gallery-add-button">Ajouter une photo</button>
-						<button class="modal-gallery-delete-button">Supprimer la galerie</button>
-					</div>
-				</form>
-			</section>
+			</div>
 		</div>
 		<script>
 		  function importModuleScriptWithoutCache(url) {
