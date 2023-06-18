@@ -320,11 +320,13 @@ const resetFileInput = () => {
 
   newFileInput.addEventListener('change', (event) => {
 	  const file = event.target.files[0];
+	  adaptAddProjectFormIsDiabled();
 
 	  if (file) {
 	    const reader = new FileReader();
 
 	    reader.onload = (e) => {
+	  		adaptAddProjectFormIsDiabled();
 	      previewImage.src = e.target.result;
 				hideFileInputContent();
 	    };
@@ -430,6 +432,23 @@ const adaptAddProjectFormIsDiabled = () => {
   }
 };
 
+const initCloseModalListeners = async () => {
+	const closeModalButton = document.querySelector('.modal-button-header');
+	closeModalButton.addEventListener('click', function() {
+		closeModal();
+	});
+
+	const adminHeader = document.querySelector('.admin-header');
+	adminHeader.addEventListener('click', function() {
+		closeModal();
+	});
+
+	const modalOpacityFilter = document.querySelector('.modal-opacity-filter');
+	modalOpacityFilter.addEventListener('click', function() {
+		closeModal();
+	});
+};
+
 const initializeAllProjects = async () => {
 	// // FOR DEV PURPOSE
 	
@@ -489,10 +508,7 @@ const initializeAllProjects = async () => {
 		showModal();
 	});
 
-	const closeModalButton = document.querySelector('.modal-button-header');
-	closeModalButton.addEventListener('click', function() {
-		closeModal();
-	});
+	initCloseModalListeners();
 
 	const backModalButton = document.querySelector('.back-modal-button-header');
 	backModalButton.addEventListener('click', function() {
@@ -504,9 +520,6 @@ const initializeAllProjects = async () => {
   addProjectButton.addEventListener('click', function() {
   	switchModalContent();
   });
-
-  const imageInput = document.getElementById('pictureInput');
-	const previewImage = document.getElementById('previewImage');
 
 	// Get the input element and the button element
 	const titleInput = document.getElementById('image-title');
