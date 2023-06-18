@@ -139,8 +139,21 @@
 				<section id="modal">
 					<h2>Ajout photo</h2>
 					<form action="#" method="post">
-						<input type="file" id="pictureInput" accept="image/*">
-						<img id="previewImage" src="" alt="Preview">
+						<div class="file-input-container">
+							<div class="file-input-icons-container">
+								<img class="file-input-icon-frame" src="./assets/images/frame-blue.svg" alt="icon frame" />
+								<img class="file-input-icon-mountain" src="./assets/images/mountain-blue.svg" alt="icon mountain" />
+								<img class="file-input-icon-circle" src="./assets/images/circle-blue.svg" alt="icon circle" />
+							</div>
+							<div class="file-input-button-container">
+								<div class="file-input-button">
+									+ Ajouter photo
+								</div>
+								<input type="file" id="pictureInput" accept="image/jpg,image/png">
+							</div>
+							<p class="file-input-legend">jpg, png : 4mo max</p>
+							<img id="previewImage" src="./assets/images/abajour-tahina.png" alt="Preview">
+						</div>
 						<label for="name">Titre</label>
 						<input type="text" name="name" id="image-title">
 						<label for="categorie">Catégorie</label>

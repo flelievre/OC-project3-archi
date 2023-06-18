@@ -25,7 +25,7 @@ const displayAndFilterProjects = async ({
 			title,
 			id,
 			imageUrl,
-		}) => {
+		}, index) => {
 			const figureElement = document.createElement('figure');
 			const imgElement = document.createElement('img');
 			const figcaptionElement = document.createElement('figcaption');
@@ -47,6 +47,7 @@ const displayAndFilterProjects = async ({
 				modalGalleryElement,
 				title,
 				id,
+				index,
 			});
 		})
 
@@ -83,6 +84,7 @@ const appendToProjectModal = ({
 	modalGalleryElement,
 	title,
 	id,
+	index,
 }) => {
 	const deleteImgElement = document.createElement('img');
 	deleteImgElement.src = '/assets/images/bin.svg';
@@ -94,6 +96,16 @@ const appendToProjectModal = ({
 	figcaptionElement.textContent = 'éditer';
 
 	projectModalFigureElement.insertBefore(deleteImgElement, projectModalFigureElement.firstElementChild);
+
+	if (index === 0) {
+		const moveImgElement = document.createElement('img');
+		moveImgElement.src = '/assets/images/move-white.svg';
+		moveImgElement.alt = `Move ${title}`;
+		moveImgElement.id = `move-project-${id}`;
+		moveImgElement.classList.add('move-project-button');
+		projectModalFigureElement.insertBefore(moveImgElement, projectModalFigureElement.firstElementChild);
+	}
+	
 
 	modalGalleryElement.appendChild(projectModalFigureElement);
 };
@@ -267,6 +279,32 @@ const initDeleteButtonsListeners = () => {
 	});
 }
 
+const showFileInputContent = () => {
+	const fileInputIconsContainer = document.querySelector('.file-input-icons-container');
+	const fileInputButtonContainer = document.querySelector('.file-input-button-container');
+	const fileInputLegend = document.querySelector('.file-input-legend');
+  const previewImage = document.getElementById('previewImage');
+
+
+  fileInputIconsContainer.classList.remove('display-none');
+  fileInputButtonContainer.classList.remove('display-none');
+  fileInputLegend.classList.remove('display-none');
+  previewImage.classList.add('display-none');
+}
+
+const hideFileInputContent = () => {
+	const fileInputIconsContainer = document.querySelector('.file-input-icons-container');
+	const fileInputButtonContainer = document.querySelector('.file-input-button-container');
+	const fileInputLegend = document.querySelector('.file-input-legend');
+  const previewImage = document.getElementById('previewImage');
+
+
+  fileInputIconsContainer.classList.add('display-none');
+  fileInputButtonContainer.classList.add('display-none');
+  fileInputLegend.classList.add('display-none');
+  previewImage.classList.remove('display-none');
+}
+
 const resetFileInput = () => {
   const fileInput = document.getElementById('pictureInput');
   const previewImage = document.getElementById('previewImage');
@@ -274,7 +312,7 @@ const resetFileInput = () => {
   const newFileInput = document.createElement('input');
   newFileInput.type = 'file';
   newFileInput.id = 'pictureInput';
-  newFileInput.accept = "image/*";
+  newFileInput.accept = "image/png,image/jpg";
 
   fileInput.parentNode.replaceChild(newFileInput, fileInput);
 
@@ -288,6 +326,7 @@ const resetFileInput = () => {
 
 	    reader.onload = (e) => {
 	      previewImage.src = e.target.result;
+				hideFileInputContent();
 	    };
 
 	    reader.readAsDataURL(file);
@@ -295,6 +334,7 @@ const resetFileInput = () => {
 	    previewImage.src = '';
 	  }
 	});
+	showFileInputContent();
 };
 
 const uploadPicture = async () => {
@@ -349,14 +389,22 @@ const uploadPicture = async () => {
       	body: formData,
       },
     })
-      .then(response => {
-        if (response.ok) {
-          console.log('Image téléversée !');
+      .then(async ({
+      	id = -1,
+      } = {}) => {
+        if (id > -1) {
+        	const projects = await resetProjects();
+				  displayAndFilterProjects({
+						projects,
+						filter: 'Tous',
+					});
+					switchModalContent();
         } else {
-          alert('Erreur lors du téléversement de votre image');
+        	alert('Une erreur s\'est produite');
         }
       })
       .catch(error => {
+        alert('Impossible de joindre le serveur');
         console.error('Impossible de joindre le serveur', error);
       });
   } else {
@@ -483,8 +531,3 @@ const initializeAllProjects = async () => {
 
 
 initializeAllProjects();
-
-// TO DO : 
-// - formdata
-// - déplacer icon poubelle à droite
-// - premiere image dans la modal : ajouter icone déplacer
