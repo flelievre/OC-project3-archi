@@ -321,6 +321,11 @@ a {
 	cursor: pointer;
 }
 
+.admin-icon-container {
+	display: inline-block;
+	height: 15px;
+}
+
 .icon-container {
 	position: relative;
 	cursor: pointer;
