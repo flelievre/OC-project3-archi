@@ -1,6 +1,18 @@
-import {
-	fetchApi,
-} from './api.js';
+const fetchApi = async ({
+	endpoint = '',
+	options = {},
+} = {}) => {
+	const response = await fetch(
+		`http://localhost:5678/api/${endpoint}`,
+		{
+			...options,
+		},
+	);
+	if (response.status !== 204) {
+		const data = await response.json();
+		return data;
+	}
+};
 
 const displayAndFilterProjects = async ({
 	projects = [],
@@ -360,14 +372,14 @@ const uploadPicture = async () => {
   if (file) {
     // Check file size (maximum 5MB)
     const fileSize = file.size / 1024 / 1024; // in MB
-    if (fileSize > 5) {
-      alert('File size exceeds the maximum limit of 5MB.');
+    if (fileSize > 4) {
+      alert('La taille du fichier dépasse la taille autorisée de 4MB.');
       return;
     }
 
     // Check file type (image only)
     if (!file.type.startsWith('image/')) {
-      alert('Only image files are allowed.');
+      alert('Seule une image est aurotisée');
       return;
     }
 
@@ -450,13 +462,6 @@ const initCloseModalListeners = async () => {
 };
 
 const initializeAllProjects = async () => {
-	// // FOR DEV PURPOSE
-	
-	// showModal();
-	// switchModalContent();
-	
-	// //END
-
 	const allProjects = await resetProjects();
 
 	showAdminIfAuthenticated({ allProjects });
@@ -521,7 +526,6 @@ const initializeAllProjects = async () => {
   	switchModalContent();
   });
 
-	// Get the input element and the button element
 	const titleInput = document.getElementById('image-title');
 	const categorySelectInput = document.getElementById('category-select');
 
