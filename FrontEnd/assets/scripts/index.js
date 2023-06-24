@@ -99,7 +99,7 @@ const appendToProjectModal = ({
 	index,
 }) => {
 	const deleteImgElement = document.createElement('img');
-	deleteImgElement.src = '/assets/images/bin.svg';
+	deleteImgElement.src = './assets/images/bin.svg';
 	deleteImgElement.alt = `Delete ${title}`;
 	deleteImgElement.id = `project-${id}`;
 	deleteImgElement.classList.add('delete-project-button');
@@ -111,7 +111,7 @@ const appendToProjectModal = ({
 
 	if (index === 0) {
 		const moveImgElement = document.createElement('img');
-		moveImgElement.src = '/assets/images/move-white.svg';
+		moveImgElement.src = './assets/images/move-white.svg';
 		moveImgElement.alt = `Move ${title}`;
 		moveImgElement.id = `move-project-${id}`;
 		moveImgElement.classList.add('move-project-button');

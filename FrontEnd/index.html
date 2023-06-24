@@ -15,8 +15,8 @@
 	<body>
 		<div class="admin-header display-none">
 			<span class="admin-icon-container">
-				<img src="./assets/images/edit-frame-white.svg" class="icon-frame" alt="edit icon white frame" />
-				<img src="./assets/images/pen-white.svg" class="icon-pen" alt="edit icon pen white" />
+				<img src="./assets/images/edit-frame-white.svg" class="icon-frame" alt="edit icon white frame">
+				<img src="./assets/images/pen-white.svg" class="icon-pen" alt="edit icon pen white">
 			</span>
 			<span class="modify-header-text">
 				Mode édition
@@ -37,13 +37,13 @@
 			</nav>
 		</header>
 		<main>
-			<section id="introduction">
+			<div id="introduction" class="margin-50">
 				<figure>
-					<img class="profil-pic" src="./assets/images/sophie-bluel.png" alt="">
+					<img class="profil-pic" src="./assets/images/sophie-bluel.png" alt="profile-picture">
 					<p class="modify-button modify-profile-picture display-none">
 						<span class="icon-container">
-							<img src="./assets/images/edit-frame-black.svg" class="icon-frame" alt="edit icon black frame" />
-							<img src="./assets/images/pen-black.svg" class="icon-pen" alt="edit icon pen black" />
+							<img src="./assets/images/edit-frame-black.svg" class="icon-frame" alt="edit icon black frame">
+							<img src="./assets/images/pen-black.svg" class="icon-pen" alt="edit icon pen black">
 						</span>
 						<span class="modify-header-text">
 							modifier
@@ -53,8 +53,8 @@
 				<article>
 					<p class="modify-button modify-text display-none">
 						<span class="icon-container">
-							<img src="./assets/images/edit-frame-black.svg" class="icon-frame" alt="edit icon black frame" />
-							<img src="./assets/images/pen-black.svg" class="icon-pen" alt="edit icon pen black" />
+							<img src="./assets/images/edit-frame-black.svg" class="icon-frame" alt="edit icon black frame">
+							<img src="./assets/images/pen-black.svg" class="icon-pen" alt="edit icon pen black">
 						</span>
 						<span class="modify-header-text">
 							modifier
@@ -65,16 +65,16 @@
 					<p>Chaque projet sera étudié en commun, de façon à mettre en valeur les volumes, les matières et les couleurs dans le respect de l’esprit des lieux et le choix adapté des matériaux. Le suivi du chantier sera assuré dans le souci du détail, le respect du planning et du budget.</p>
 					<p>En cas de besoin, une équipe pluridisciplinaire peut-être constituée : architecte DPLG, décorateur(trice)</p>
 				</article>
-			</section>
-			<section id="portfolio">
+			</div>
+			<div id="portfolio" class="margin-50">
 				<div id="projects-title">
 					<h2>
 						Mes Projets
 					</h2>
 					<p class="modify-button modify-projects display-none">
 						<span class="icon-container">
-							<img src="./assets/images/edit-frame-black.svg" class="icon-frame" alt="edit icon black frame" />
-							<img src="./assets/images/pen-black.svg" class="icon-pen" alt="edit icon pen black" />
+							<img src="./assets/images/edit-frame-black.svg" class="icon-frame" alt="edit icon black frame">
+							<img src="./assets/images/pen-black.svg" class="icon-pen" alt="edit icon pen black">
 						</span>
 						<span class="modify-header-text">
 							modifier
@@ -85,7 +85,7 @@
 			  </section>
 				<div class="gallery">
 				</div>
-			</section>
+			</div>
 			<section id="contact">
 				<h2>Contact</h2>
 				<p>Vous avez un projet ? Discutons-en !</p>
@@ -114,10 +114,10 @@
 		<div class="modal display-none">
 			<div class="modal-buttons-header">
 				<div class="back-modal-button-header">
-					<img id="modal-back-button-img" src="./assets/images/arrow-back-black.svg" class="display-none" />
+					<img id="modal-back-button-img" src="./assets/images/arrow-back-black.svg" class="display-none" alt="Modal back button">
 				</div>
 				<div class="modal-button-header">
-					<img src="./assets/images/cross-black.svg" />
+					<img src="./assets/images/cross-black.svg" alt="Close modal button">
 				</div>
 			</div>
 			<div id="modal-edit-projects">
@@ -136,14 +136,14 @@
 				</div>
 			</div>
 			<div id="modal-add-projects" class="display-none">
-				<section id="modal">
+				<section id="modal-add">
 					<h2>Ajout photo</h2>
 					<form action="#" method="post">
 						<div class="file-input-container">
 							<div class="file-input-icons-container">
-								<img class="file-input-icon-frame" src="./assets/images/frame-blue.svg" alt="icon frame" />
-								<img class="file-input-icon-mountain" src="./assets/images/mountain-blue.svg" alt="icon mountain" />
-								<img class="file-input-icon-circle" src="./assets/images/circle-blue.svg" alt="icon circle" />
+								<img class="file-input-icon-frame" src="./assets/images/frame-blue.svg" alt="icon frame">
+								<img class="file-input-icon-mountain" src="./assets/images/mountain-blue.svg" alt="icon mountain">
+								<img class="file-input-icon-circle" src="./assets/images/circle-blue.svg" alt="icon circle">
 							</div>
 							<div class="file-input-button-container">
 								<div class="file-input-button">
@@ -156,8 +156,8 @@
 						</div>
 						<label for="name">Titre</label>
 						<input type="text" name="name" id="image-title">
-						<label for="categorie">Catégorie</label>
-						<div class="select-wrapper" name="categorie" id="categorie">
+						<label>Catégorie</label>
+						<div class="select-wrapper" id="categorie">
 						  <select id="category-select">
 						  </select>
 						  <div class="icon-wrapper">
